@@ -50,34 +50,38 @@ Số tính bằng `src/lab13.py`. Mọi con số tính từ cột `_simulated` g
 
 ## B1 · Đổi từng yếu tố
 
-| Kịch bản | Cách tính | Chi phí mỗi việc thành công | Thay đổi (%) |
+Mốc A2 là **4.471,97 đ/việc thành công** (simulated). Phần trăm thay đổi được tính trước khi làm tròn.
+
+| Kịch bản | Cách tính | Chi phí mỗi việc thành công (đ, simulated) | Thay đổi so với A2 (simulated) |
 | --- | --- | ---: | ---: |
-| Giá token gấp đôi | 52 đ và 260 đ cho 1.000 token; giá tool giữ nguyên | ... | ... |
-| Giá token giảm một nửa | 13 đ và 65 đ | ... | ... |
-| Tỉ lệ xem lại gấp đôi | Tiền xem lại × 2 | ... | ... |
-| Tỉ lệ xem lại giảm một nửa | Tiền xem lại ÷ 2 | ... | ... |
-| Số ca làm lại gấp đôi | Tiền làm lại × 2 | ... | ... |
-| Số ca làm lại giảm một nửa | Tiền làm lại ÷ 2 | ... | ... |
-| Lương nhân viên tăng 25% | 2.500 đ mỗi phút | ... | ... |
-| Chỉ cho chạy tối đa 2 lần | Bỏ lần chạy có attempt > 2; yêu cầu có so_lan_chay > 2 coi là chuyen_nhan_vien | ... | ... |
-| Chỉ cho chạy 1 lần | Như trên với giới hạn 1 | ... | ... |
+| Giá token gấp đôi | 52 đ và 260 đ cho 1.000 token, giữ giá tool | 4.723,08 | +5,62% |
+| Giá token giảm một nửa | 13 đ và 65 đ cho 1.000 token, giữ giá tool | 4.346,41 | −2,81% |
+| Tỉ lệ xem lại gấp đôi | Tiền xem lại × 2 | 6.292,01 | +40,70% |
+| Tỉ lệ xem lại giảm một nửa | Tiền xem lại ÷ 2 | 3.561,95 | −20,35% |
+| Số ca làm lại gấp đôi | Tiền làm lại × 2 | 6.786,90 | +51,77% |
+| Số ca làm lại giảm một nửa | Tiền làm lại ÷ 2 | 3.314,50 | −25,88% |
+| Lương nhân viên tăng 25% | 2.500 đ mỗi phút | 5.505,71 | +23,12% |
+| Chỉ cho chạy tối đa 2 lần | Bỏ `attempt > 2`. Yêu cầu có `so_lan_chay > 2` chuyển cho nhân viên, đặt phút xem lại và làm lại về 0 | 4.237,29 | −5,25% |
+| Chỉ cho chạy 1 lần | Áp dụng cùng quy tắc với giới hạn 1 | 4.110,99 | −8,07% |
 
 ## B2 · Đổi một cặp và xếp hạng
 
-- Giá token gấp đôi cùng lúc tỉ lệ xem lại gấp đôi: ...
-- Xếp hạng ba yếu tố ảnh hưởng mạnh nhất: 1. ... · 2. ... · 3. ...
+- Gấp đôi cả giá token và tỉ lệ xem lại cho **6.543,12 đ/việc thành công (+46,31%)** (simulated). Mức tăng bằng tổng hai tác động riêng trước khi làm tròn.
+- Ba mức tăng mạnh nhất lần lượt là gấp đôi số ca làm lại (**+51,77%**), gấp đôi tỉ lệ xem lại (**+40,70%**) và tăng lương 25% (**+23,12%**) (simulated).
 
 ## B3 · Giới hạn chạy lại có thật sự rẻ hơn
 
-| Giới hạn | Tổng chi phí trợ lý | Số yêu cầu không thành công | Chi phí cả hệ thống | Chi phí mỗi việc thành công |
-| --- | ---: | ---: | ---: | ---: |
-| 1 lần | ... | ... | ... | ... |
-| 2 lần | ... | ... | ... | ... |
-| 3 lần | ... | ... | ... | ... |
+Chi phí cả hệ thống bằng tổng chi phí trợ lý cộng 12.000 đ cho mỗi yêu cầu không thành công.
 
-- Giới hạn nào rẻ nhất cho công ty? Có trùng với giới hạn cho chi phí mỗi việc thành công thấp nhất không? ...
+| Giới hạn | Tổng chi phí trợ lý (đ, simulated) | Số yêu cầu không thành công | Chi phí cả hệ thống (đ, simulated) | Chi phí mỗi việc thành công (đ, simulated) |
+| --- | ---: | ---: | ---: | ---: |
+| 1 lần | 3.621.780,64 | 319 | 7.449.780,64 | **4.110,99** |
+| 2 lần | 4.093.220,23 | 234 | **6.901.220,23** | 4.237,29 |
+| 3 lần | 4.373.585,13 | 222 | 7.037.585,13 | 4.471,97 |
+
+- Giới hạn **2 lần** có tổng chi phí hệ thống thấp nhất (**6.901.220,23 đ**), còn giới hạn **1 lần** có chi phí mỗi việc thành công thấp nhất (**4.110,99 đ**) (simulated). Giới hạn 1 lần có thêm **85 yêu cầu không thành công** so với 2 lần.
 
 ## B4 · Nếu phải xem lại tất cả
 
-- Chi phí mỗi việc thành công khi xem lại 100% (`noi_dia` + `hang_nang`), so với 12.000 đ: ...
-- Kết quả này nói gì về thứ pilot cần học được? ...
+- Trong `noi_dia` + `hang_nang`, xem lại 5 phút cho mỗi ca trong số **948 ca có lượt `ok`**, với **48 ca làm lại** và **900 việc thành công**. Nếu làm lại mất **9 phút/ca**, chi phí là **11.742,79 đ/việc thành công (0,98×)**. Dùng **15,3 phút/ca** từ trung bình toàn mẫu (`1.132 / 74`, làm tròn) thì chi phí là **12.414,79 đ (1,03×)** (simulated).
+- Để hòa vốn ở mốc **12.000 đ/việc thành công**, thời gian xem lại tối đa là **5,12 phút/ca** với giả định làm lại 9 phút và **4,80 phút/ca** với mức 15,3 phút (simulated). Pilot cần đo thời gian xem lại và mức có thể giảm tỉ lệ xem lại mà vẫn giữ an toàn.
