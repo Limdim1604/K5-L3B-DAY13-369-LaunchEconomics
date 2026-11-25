@@ -27,7 +27,7 @@ pilot:
     unit: "staff"                 # request | staff | depot
     control_share: 0.5
     randomized: true
-  rollout: [0.10, 0.25, 0.50]     # mỗi bước một tuần
+  rollout: [0.10, 0.25, 0.50]     # Bước 1: 4 nhân viên; bước 2: 10; bước 3: 20 dùng trợ lý; đối chứng 20 nhân viên chạy đồng thời. Chỉ đánh giá hiệu quả bằng chỉ số chính ở bước 20, khi đủ 859 yêu cầu hiệu dụng mỗi nhóm (5.980 thực tế mỗi nhóm, tối thiểu 299 mỗi nhân viên) và chỉ dùng yêu cầu đã đủ 7 ngày theo dõi; không kết luận hiệu quả ở bước 4 hoặc 10.
   primary_metric:
     name: dong_trong_24h_khong_mo_lai_7_ngay
     baseline: 0.70
@@ -42,11 +42,11 @@ pilot:
     spillover_risk: "Có nguy cơ nhân viên cùng depot chia sẻ câu trả lời và kinh nghiệm; giảm bằng phân quyền tài khoản, hướng dẫn riêng, log sử dụng và phân tích theo phân nhóm ban đầu."
     predeclared: "Có: chỉ số chính là tỷ lệ đóng trong 24 giờ và không mở lại trong 7 ngày; MDE kinh doanh 5 điểm, MDE thống kê 6 điểm; ghi trước ngày đánh giá và điều kiện đủ dữ liệu."
   stop_rules:
-    - "NẾU tỷ lệ mở lại trong 7 ngày ở nhánh trợ lý vượt 6% hoặc cao hơn đối chứng trên 2 điểm phần trăm TRONG hai cửa sổ 7 ngày liên tiếp, mỗi nhóm/cửa sổ có ít nhất 200 yêu cầu đủ thời gian theo dõi THÌ Trưởng bộ phận vận hành CSKH dừng mở rộng và kiểm tra nguyên nhân KHÔNG THÌ tiếp tục theo dõi."
-    - "NẾU chi phí mỗi việc thành công đo được vượt 8.000 đồng TRONG hai cửa sổ 7 ngày liên tiếp, mỗi cửa sổ có ít nhất 200 việc thành công THÌ PM trợ lý hoàn phí phải dừng mở rộng và rà soát chi phí KHÔNG THÌ tiếp tục rollout theo kế hoạch."
-    - "NẾU tỷ lệ nhân viên sửa hoặc bỏ gợi ý vượt 40% TRONG một tuần với ít nhất 30 yêu cầu được xem lại THÌ Trưởng nhóm CSKH dừng mở rộng, phỏng vấn năm nhân viên và rà soát trải nghiệm KHÔNG THÌ tiếp tục thu thập dữ liệu sử dụng."
-    - "NẾU phát hiện từ một giao dịch hoàn tiền trùng cho cùng yêu cầu trong chu kỳ đối soát 24 giờ TRONG chu kỳ đối soát đó THÌ Trưởng bộ phận vận hành CSKH dừng ngay luồng tự động và chuyển sang xử lý thủ công KHÔNG THÌ tiếp tục luồng đã kiểm soát."
-  interim_looks: "Chỉ kiểm tra an toàn, chi phí và sử dụng để thực hiện luật dừng; không kiểm định liên tục chỉ số chính để kết luận hiệu quả sớm."
+    - "NẾU tỷ lệ mở lại trong 7 ngày của nhánh trợ lý vượt 6% HOẶC phát hiện ít nhất một giao dịch hoàn tiền trùng HOẶC phát hiện ít nhất một trường hợp trợ lý báo đã hoàn tất nhưng sổ cái chưa xác nhận TRONG từ bước 4 trở đi; tỷ lệ mở lại được tính trên yêu cầu đã đủ 7 ngày, còn hoàn tiền trùng và báo hoàn tất sai xử lý ngay khi phát hiện THÌ Trưởng bộ phận vận hành CSKH dừng ngay luồng tự động, kích hoạt rollback và chuyển sang xử lý thủ công KHÔNG THÌ tiếp tục rollout với giám sát hằng ngày."
+    - "NẾU tỷ lệ mở lại trong 7 ngày của nhóm trợ lý cao hơn nhóm đối chứng từ 2 điểm phần trăm trở lên TRONG hai cửa sổ 7 ngày liên tiếp, với tối thiểu 200 yêu cầu đã đủ thời gian theo dõi cho mỗi nhóm trong mỗi cửa sổ và chỉ áp dụng từ bước 10 nhân viên trở lên THÌ Trưởng bộ phận vận hành CSKH dừng mở rộng để điều tra KHÔNG THÌ không áp dụng quy tắc chênh lệch đối chứng ở bước 4."
+    - "NẾU chi phí biến đổi mỗi việc thành công vượt 8.000 đồng TRONG hai cửa sổ 7 ngày liên tiếp, mỗi cửa sổ có ít nhất 200 việc thành công; chi phí biến đổi gồm tiền máy (token và tool), thời gian nhân viên xem lại và thời gian nhân viên làm lại, không gồm 40 triệu đồng chi phí cố định mỗi tháng THÌ Trưởng bộ phận vận hành CSKH dừng mở rộng và PM trợ lý hoàn phí rà soát nguồn chi phí KHÔNG THÌ tiếp tục rollout theo kế hoạch."
+    - "NẾU tỷ lệ gợi ý bị nhân viên sửa hoặc bỏ vượt 40% TRONG một tuần với tối thiểu 30 yêu cầu được xem lại THÌ Trưởng bộ phận vận hành CSKH dừng mở rộng và Trưởng nhóm CSKH phỏng vấn năm nhân viên để xác định nguyên nhân KHÔNG THÌ tiếp tục thu thập dữ liệu sử dụng."
+  interim_looks: "Theo dõi an toàn, chi phí và sử dụng xuyên suốt rollout; chỉ đánh giá hiệu quả bằng chỉ số chính tại bước 20 khi đủ cỡ mẫu và đủ 7 ngày theo dõi; không kiểm định liên tục chỉ số chính để kết luận hiệu quả sớm và không kết luận hiệu quả ở bước 4 hoặc 10."
   rollback: "Trưởng bộ phận vận hành CSKH có quyền dừng; tắt trợ lý trong tối đa 60 phút; nhân viên tiếp nhận các yêu cầu đang xử lý bằng quy trình thủ công; giữ trace và đối soát giao dịch đã phát sinh."
   decision_date: "2027-01-20 (đề xuất, chưa phải lịch đã xác nhận; chỉ đánh giá Go khi đủ cỡ mẫu và theo dõi đủ 7 ngày)."
   simulated_inputs: ["Dữ liệu yêu cầu và lần chạy của lab (simulated)", "baseline 0,70 (simulated)", "ICC 0,02 (simulated)", "alpha 0,05 (simulated)", "power mục tiêu 0,80 (simulated)", "MDE 0,06 (simulated)", "mức chi phí nhân viên 12.000 đồng (simulated)", "các số liệu chi phí từ cột _simulated", "các ngưỡng dừng, rollout và ngày đánh giá là đề xuất pilot"]
