@@ -4,6 +4,8 @@ Không cần khoá API. Điền các chỗ ghi VIẾT Ở ĐÂY (đánh dấu TO
 Bản gốc chưa sửa nằm ở lab13_starter.py.
 """
 import math
+from statistics import NormalDist
+
 import pandas as pd
 
 # Bảng giá GIẢ ĐỊNH của lab (không phải giá thật của nhà cung cấp nào)
@@ -223,6 +225,66 @@ def in_bang_b4(runs, reqs, moc_a2):
               f'{cps / moc_a2 - 1:+.2%} | {phut_hoa_von:.2f} | simulated |')
 
 
+def co_mau_hai_ty_le(p_doi_chung, p_tro_ly, alpha=0.05, power=0.80):
+    """Cỡ mẫu mỗi nhóm cho kiểm định hai phía với hai nhóm cùng kích thước."""
+    chuan = NormalDist()
+    z_alpha = chuan.inv_cdf(1 - alpha / 2)
+    z_power = chuan.inv_cdf(power)
+    p_trung_binh = (p_doi_chung + p_tro_ly) / 2
+    sai_so_gop = math.sqrt(2 * p_trung_binh * (1 - p_trung_binh))
+    sai_so_rieng = math.sqrt(p_doi_chung * (1 - p_doi_chung) + p_tro_ly * (1 - p_tro_ly))
+    chenh_lech = p_tro_ly - p_doi_chung
+    return math.ceil(((z_alpha * sai_so_gop + z_power * sai_so_rieng) / chenh_lech) ** 2)
+
+
+def in_ket_qua_d1(reqs):
+    icc = 0.02
+    nhan_vien_moi_nhom = 20
+    depot_moi_nhom = 6
+    yeu_cau_moi_nguoi = 75
+
+    n_5_diem = co_mau_hai_ty_le(0.70, 0.75)
+    n_6_diem = co_mau_hai_ty_le(0.70, 0.76)
+    he_so_75 = 1 + (yeu_cau_moi_nguoi - 1) * icc
+    yeu_cau_moi_nhom = math.ceil(n_5_diem * he_so_75)
+    nhan_vien_can = math.ceil(yeu_cau_moi_nhom / yeu_cau_moi_nguoi)
+    hieu_dung_75 = nhan_vien_moi_nhom * yeu_cau_moi_nguoi / he_so_75
+
+    # Giải c*m / (1 - ICC + m*ICC) >= n_6_diem theo m.
+    yeu_cau_6_diem = math.ceil(
+        n_6_diem * (1 - icc) / (nhan_vien_moi_nhom - n_6_diem * icc)
+    )
+    he_so_6_diem = 1 + (yeu_cau_6_diem - 1) * icc
+    tong_6_diem = nhan_vien_moi_nhom * yeu_cau_6_diem
+    hieu_dung_6_diem = tong_6_diem / he_so_6_diem
+
+    # Xấp xỉ chuẩn với Cohen's h cho kiểm định hai phía, hai nhóm cân bằng.
+    chuan = NormalDist()
+    z_alpha = chuan.inv_cdf(0.975)
+    h_5_diem = 2 * (math.asin(math.sqrt(0.75)) - math.asin(math.sqrt(0.70)))
+    dich_chuyen = h_5_diem * math.sqrt(hieu_dung_6_diem / 2)
+    power_5_diem = chuan.cdf(dich_chuyen - z_alpha) + chuan.cdf(-dich_chuyen - z_alpha)
+
+    print('\nD1 · Cỡ mẫu pilot (alpha = 0,05; power mục tiêu = 80%; ICC = 0,02)')
+    print(f'a) Chia theo yêu cầu, 70% → 75%: {n_5_diem:,} yêu cầu mỗi nhóm.')
+    print(f'b) Chia theo nhân viên, 75 yêu cầu/người: DE = {he_so_75:.2f}; '
+          f'{yeu_cau_moi_nhom:,} yêu cầu và {nhan_vien_can} người mỗi nhóm '
+          f'({2 * nhan_vien_can} người tổng cộng).')
+    print(f'c) 20 nhân viên mỗi nhóm: {hieu_dung_75:.2f} yêu cầu hiệu dụng ở 75 yêu cầu/người; '
+          f'trần {nhan_vien_moi_nhom / icc:,.0f} mỗi nhóm.')
+    print(f'd) 6 depot mỗi nhóm: trần {depot_moi_nhom / icc:,.0f} yêu cầu hiệu dụng mỗi nhóm.')
+    print(f'e) Chia 20 nhân viên mỗi nhóm, 70% → 76%: cần {n_6_diem:,} yêu cầu hiệu dụng; '
+          f'{yeu_cau_6_diem} yêu cầu/người cho {tong_6_diem:,} yêu cầu mỗi nhóm, '
+          f'DE = {he_so_6_diem:.2f}, hiệu dụng = {hieu_dung_6_diem:.2f}.')
+    print(f'Với thiết kế ở câu e, power cho mức chênh thực 5 điểm: khoảng {power_5_diem:.1%}.')
+
+    pham_vi = reqs[reqs['loai'].isin(['noi_dia', 'hang_nang'])]
+    for ten, nhom in (('toàn mẫu', reqs), ('noi_dia + hang_nang', pham_vi)):
+        so_mo_lai = nhom['mo_lai_trong_7_ngay'].eq(1).sum()
+        print(f'Mở lại trong 7 ngày ({ten}): {so_mo_lai:,}/{len(nhom):,} '
+              f'= {so_mo_lai / len(nhom):.2%}.')
+
+
 if __name__ == '__main__':
     kiem_tra_dap_an_biet_truoc()
     runs = pd.read_csv('logix_runs.csv')
@@ -233,6 +295,4 @@ if __name__ == '__main__':
     in_bang_a4(runs, reqs)
     in_bang_b1_den_b3(runs, reqs, ket_qua_a2['cps'])
     in_bang_b4(runs, reqs, ket_qua_a2['cps'])
-    # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
-    #   from statsmodels.stats.proportion import proportion_effectsize
-    #   from statsmodels.stats.power import NormalIndPower
+    in_ket_qua_d1(reqs)
