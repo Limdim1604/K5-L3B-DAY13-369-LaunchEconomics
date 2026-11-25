@@ -19,6 +19,8 @@ Nhóm xây dựng hồ sơ launch v0 cho trợ lý hoàn phí LogiX-VN trên m�
 - **D · Kế hoạch pilot ([pilot_plan.yaml](pilot_plan.yaml)):** Tính 5 câu cỡ mẫu D1, kiểm 5 câu tách tác động D2, chia ngẫu nhiên 20 nhân viên/nhánh phân tầng theo depot, đặt 4 luật dừng đúng mẫu NẾU–TRONG–THÌ–KHÔNG THÌ và rollback ≤ 60 phút.
 - **E · Chỉ số, rủi ro và hồ sơ v0 ([chi_so.md](chi_so.md), [ho_so_launch_v0.md](ho_so_launch_v0.md)):** Tính thử 3 chỉ số đợt chạy thử, đề xuất 2 chỉ số pilot, thiết kế 9 event có `trace_id`, tổng hợp 3 rủi ro kinh tế và ghép hồ sơ 1 trang trình Gate 2a.
 
+- **Kiểm trên máy thứ hai.** Hà Lê Duy chạy `python -X utf8 lab13.py` từ `src/` trên bản `bb3eeff`. Mã thoát 0, A1 đạt **1,20 / 1,25 / 1,25** và chương trình in đầy đủ A1–A4, B1–B4 và D1.
+
 ## 4. Kết quả
 
 ### Con số chính và đề xuất cuối ([ho_so_launch_v0.md](ho_so_launch_v0.md))
