@@ -4,7 +4,7 @@
 
 - Họ tên: Nguyễn Tấn Châu
 - MSSV: 2A202603846
-- Email: Chưa xác nhận
+- Email: 26ai.chaunt@vinuni.edu.vn
 - Vai trong nhóm: Người gắn nhãn 2 kiêm giữ hồ sơ
 
 ## 2. Phần việc phụ trách

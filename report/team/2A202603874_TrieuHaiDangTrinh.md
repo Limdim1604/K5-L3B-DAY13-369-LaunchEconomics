@@ -4,7 +4,7 @@
 
 - Họ tên: Triệu Hải Đăng Trình
 - MSSV: 2A202603874
-- Email: Chưa xác nhận
+- Email: 26ai.trinhthd@vinuni.edu.vn
 - Vai trong nhóm: Người gắn nhãn 1, phụ trách kế hoạch pilot
 
 ## 2. Phần việc phụ trách

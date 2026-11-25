@@ -13,8 +13,8 @@
 | ---: | --- | --- | --- | --- | --- |
 | 1 | Nguyễn Thiên Bảo | 2A202603861 | 26ai.baont5@vinuni.edu.vn | Limdim1604 | Nhóm trưởng, kiểm số trước giải lao và nhận phần chạy code sau bàn giao |
 | 2 | Hà Lê Duy | 2A202603851 | 26ai.duyhl2@vinuni.edu.vn | duyhale95 | Viết code A/B, sau bàn giao chuyển sang kiểm số |
-| 3 | Triệu Hải Đăng Trình | 2A202603874 | Chưa xác nhận | DangTrinhdzZz | Người gắn nhãn 1, phụ trách kế hoạch pilot |
-| 4 | Nguyễn Tấn Châu | 2A202603846 | Chưa xác nhận | Lmeo2h | Người gắn nhãn 2 kiêm giữ hồ sơ |
+| 3 | Triệu Hải Đăng Trình | 2A202603874 | 26ai.trinhthd@vinuni.edu.vn | DangTrinhdzZz | Người gắn nhãn 1, phụ trách kế hoạch pilot |
+| 4 | Nguyễn Tấn Châu | 2A202603846 | 26ai.chaunt@vinuni.edu.vn | Lmeo2h | Người gắn nhãn 2 kiêm giữ hồ sơ |
 
 ## Đóng góp và báo cáo cá nhân
 
